@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?><odoo>
+  <data>
+
+        <record id="view_stock_move_operations_inherited" model="ir.ui.view">
+          <field name="name">view.stock.move.operations.inherited</field>
+          <field name="model">stock.move</field>
+          <field name="inherit_id" ref="stock.view_stock_move_operations"/>
+          <field name="arch" type="xml">
+            <xpath expr="//form/group" position="inside">
+                <group>
+                    <field name="managed_by_package" invisible="1"/>
+                    <field name="packages_qty" attrs="{'invisible':[('managed_by_package','=',False)],'required':[('managed_by_package','=',True)]}"/>
+                    <field name="global_qty_done" attrs="{'invisible':[('managed_by_package','=',False)],'required':[('managed_by_package','=',True)]}"/>
+                </group>
+            </xpath>
+          </field>
+        </record>
+
+
+  </data>
+</odoo>
