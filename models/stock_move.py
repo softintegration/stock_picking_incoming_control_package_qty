@@ -17,11 +17,13 @@ class StockMove(models.Model):
         self._check_global_qty_move_line_ids()
         return res
 
-    @api.constrains('packages_qty','product_global_qty','move_line_ids',
+    @api.constrains('picking_type_id','packages_qty','product_global_qty','move_line_ids',
                     #'picking_type_id.show_operations'
                     )
     def _check_global_qty_move_line_ids(self):
         for each in self:
+            if each.picking_type_id.code != 'incoming':
+                continue
             if not each.picking_type_id.show_operations and each.managed_by_package and each.move_line_ids:
                 if each.packages_qty != len(each.move_line_ids.mapped("result_package_id")):
                     raise ValidationError(_("The qty global of packages must be equal to the number of packages entered on the lines!"))
