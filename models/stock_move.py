@@ -10,7 +10,8 @@ class StockMove(models.Model):
 
     managed_by_package = fields.Boolean(string='Managed by package',related='product_id.managed_by_package')
     packages_qty = fields.Integer(string='Qty global of packages',states={'done': [('readonly', True)]},copy=False)
-    global_qty_done = fields.Float(string='Global received Qty',states={'done': [('readonly', True)]},copy=False)
+    global_qty_done = fields.Float(string='Global received Qty',states={'done': [('readonly', True)]},copy=False,
+                                   digits='Product Unit of Measure',)
 
     def write(self, vals):
         res = super(StockMove, self).write(vals)
